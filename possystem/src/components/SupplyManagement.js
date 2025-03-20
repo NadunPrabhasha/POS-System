@@ -31,7 +31,7 @@ const SupplyManagement = () => {
     }
 
     // Validate Contact (simple regex for phone number)
-    const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+    const phoneRegex = /^[0-9]{3}[0-9]{3}[0-9]{4}$/;
     if (!contact.trim()) {
       formErrors.contact = "Contact is required";
       isValid = false;

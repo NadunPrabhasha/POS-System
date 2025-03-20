@@ -2,6 +2,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Dashboard.css';  // Optional: For custom styling
+import Slideshow from "../components/Slideshow";
+
 
 const Dashboard = () => {
   return (
@@ -25,7 +27,10 @@ const Dashboard = () => {
         </div>
       </div>
      
-      
+      <div>
+            <h1 className="text-xl font-bold"></h1>
+            <Slideshow />
+        </div>
     </div>
   );
 };

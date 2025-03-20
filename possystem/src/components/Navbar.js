@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import './Navbar.css'; // Import the CSS for Navbar styling
 import logo from '../assets/images/logo.png';  // Import your logo image
 
+
 const Navbar = () => {
   return (
     <nav className="navbar">

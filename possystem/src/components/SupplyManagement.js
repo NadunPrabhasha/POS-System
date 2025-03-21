@@ -13,9 +13,9 @@ const SupplyManagement = () => {
 
   useEffect(() => {
     const initialSupplies = [
-      { id: 1, supplier_name: 'Supplier A', contact: '123-456-7890', company_name: 'Company A' },
-      { id: 2, supplier_name: 'Supplier B', contact: '987-654-3210', company_name: 'Company B' },
-      { id: 3, supplier_name: 'Supplier C', contact: '111-222-3333', company_name: 'Company A' },
+      { id: 1, supplier_name: 'Supplier A', contact: '1234567890', company_name: 'Company A' },
+      { id: 2, supplier_name: 'Supplier B', contact: '9876543210', company_name: 'Company B' },
+      { id: 3, supplier_name: 'Supplier C', contact: '1112223333', company_name: 'Company A' },
     ];
     setSupplies(initialSupplies);
   }, []);
@@ -24,13 +24,14 @@ const SupplyManagement = () => {
   const validateForm = () => {
     let formErrors = {};
     let isValid = true;
+    
 
     if (!supplierName.trim()) {
       formErrors.supplierName = "Supplier Name is required";
       isValid = false;
     }
 
-    const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+    const phoneRegex = /^[0-9]{3}[0-9]{3}[0-9]{4}$/;
     if (!contact.trim()) {
       formErrors.contact = "Contact is required";
       isValid = false;

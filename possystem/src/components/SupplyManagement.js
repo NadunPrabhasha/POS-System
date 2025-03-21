@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import './SupplyManagement.css'; // Ensure the CSS file is present
+import './SupplyManagement.css';
 
 const SupplyManagement = () => {
-  const [supplies, setSupplies] = useState([]); // To store the list of supplies
-  const [currentSupply, setCurrentSupply] = useState(null); // To manage the current supply being edited
-  const [supplierName, setSupplierName] = useState(''); // Supplier name input state
-  const [contact, setContact] = useState(''); // Contact input state
-  const [companyName, setCompanyName] = useState(''); // Company name input state
-  const [errors, setErrors] = useState({}); // To store validation errors
+  const [supplies, setSupplies] = useState([]);
+  const [currentSupply, setCurrentSupply] = useState(null);
+  const [supplierName, setSupplierName] = useState('');
+  const [contact, setContact] = useState('');
+  const [companyName, setCompanyName] = useState('');
+  const [errors, setErrors] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCompany, setSelectedCompany] = useState('');
 
-  // Fetch initial supplies (This would normally come from an API)
   useEffect(() => {
-    // Fetch supplies from an API or backend (for demo, using static data)
     const initialSupplies = [
       { id: 1, supplier_name: 'Supplier A', contact: '123-456-7890', company_name: 'Company A' },
       { id: 2, supplier_name: 'Supplier B', contact: '987-654-3210', company_name: 'Company B' },
+      { id: 3, supplier_name: 'Supplier C', contact: '111-222-3333', company_name: 'Company A' },
     ];
     setSupplies(initialSupplies);
   }, []);
@@ -24,39 +25,33 @@ const SupplyManagement = () => {
     let formErrors = {};
     let isValid = true;
 
-    // Validate Supplier Name
     if (!supplierName.trim()) {
       formErrors.supplierName = "Supplier Name is required";
       isValid = false;
     }
 
-    // Validate Contact (simple regex for phone number)
-    const phoneRegex = /^[0-9]{3}[0-9]{3}[0-9]{4}$/;
+    const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
     if (!contact.trim()) {
       formErrors.contact = "Contact is required";
       isValid = false;
     } else if (!phoneRegex.test(contact)) {
-      formErrors.contact = "Contact must be a valid phone number (XXX-XXX-XXXX)";
+      formErrors.contact = "Contact must be in format XXX-XXX-XXXX";
       isValid = false;
     }
 
-    // Validate Company Name
     if (!companyName.trim()) {
       formErrors.companyName = "Company Name is required";
       isValid = false;
     }
 
-    setErrors(formErrors); // Update errors
+    setErrors(formErrors);
     return isValid;
   };
 
-  // Handle adding or updating a supply
+  // Handle Add / Update Supply
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      return; // Don't submit if form is invalid
-    }
+    if (!validateForm()) return;
 
     const newSupply = {
       id: currentSupply ? currentSupply.id : Date.now(),
@@ -66,75 +61,79 @@ const SupplyManagement = () => {
     };
 
     if (currentSupply) {
-      // Update the supply
       setSupplies(supplies.map(supply => (supply.id === currentSupply.id ? newSupply : supply)));
     } else {
-      // Add a new supply
       setSupplies([...supplies, newSupply]);
     }
 
-    // Reset form
     setSupplierName('');
     setContact('');
     setCompanyName('');
-    setCurrentSupply(null); // Clear current supply being edited
-    setErrors({}); // Clear errors
+    setCurrentSupply(null);
+    setErrors({});
   };
 
-  // Handle deleting a supply
+  // Handle Delete
   const handleDelete = (id) => {
     setSupplies(supplies.filter(supply => supply.id !== id));
   };
 
-  // Handle editing a supply
+  // Handle Edit
   const handleEdit = (supply) => {
     setCurrentSupply(supply);
     setSupplierName(supply.supplier_name);
     setContact(supply.contact);
     setCompanyName(supply.company_name);
-    setErrors({}); // Clear errors when editing
+    setErrors({});
   };
+
+  // **🔍 Filtering Logic**
+  const filteredSupplies = supplies.filter(supply =>
+    supply.supplier_name.toLowerCase().includes(searchQuery.toLowerCase()) &&
+    (selectedCompany === '' || supply.company_name === selectedCompany)
+  );
 
   return (
     <div className="supply-management">
       <h2>Supply Management</h2>
 
-      {/* Form for Create/Update */}
+      {/* Search & Filter Inputs */}
+      <div className="filter-section">
+        <input
+          type="text"
+          placeholder="Search by Supplier Name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <select value={selectedCompany} onChange={(e) => setSelectedCompany(e.target.value)}>
+          <option value="">All Companies</option>
+          {[...new Set(supplies.map(supply => supply.company_name))].map(company => (
+            <option key={company} value={company}>{company}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Form */}
       <form onSubmit={handleSubmit}>
         <div>
           <label>Supplier Name:</label>
-          <input
-            type="text"
-            value={supplierName}
-            onChange={(e) => setSupplierName(e.target.value)}
-            required
-          />
+          <input type="text" value={supplierName} onChange={(e) => setSupplierName(e.target.value)} required />
           {errors.supplierName && <p className="error">{errors.supplierName}</p>}
         </div>
         <div>
           <label>Contact:</label>
-          <input
-            type="text"
-            value={contact}
-            onChange={(e) => setContact(e.target.value)}
-            required
-          />
+          <input type="text" value={contact} onChange={(e) => setContact(e.target.value)} required />
           {errors.contact && <p className="error">{errors.contact}</p>}
         </div>
         <div>
           <label>Company Name:</label>
-          <input
-            type="text"
-            value={companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-            required
-          />
+          <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
           {errors.companyName && <p className="error">{errors.companyName}</p>}
         </div>
         <button type="submit">{currentSupply ? 'Update' : 'Add'} Supply</button>
       </form>
 
-      {/* Table of Supplies */}
+      {/* Table */}
       <div className="supply-table">
         <h3>List of Supplies</h3>
         <table>
@@ -147,17 +146,22 @@ const SupplyManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {supplies.map(supply => (
+            {filteredSupplies.map(supply => (
               <tr key={supply.id}>
                 <td>{supply.supplier_name}</td>
                 <td>{supply.contact}</td>
                 <td>{supply.company_name}</td>
                 <td>
-                  <button onClick={() => handleEdit(supply)}>Edit</button>
-                  <button onClick={() => handleDelete(supply.id)}>Delete</button>
+                  <button className="edit-btn" onClick={() => handleEdit(supply)}>Edit</button>
+                  <button className="delete-btn" onClick={() => handleDelete(supply.id)}>Delete</button>
                 </td>
               </tr>
             ))}
+            {filteredSupplies.length === 0 && (
+              <tr>
+                <td colSpan="4" style={{ textAlign: 'center', color: 'red' }}>No suppliers found</td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

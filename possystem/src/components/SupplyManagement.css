@@ -17,7 +17,7 @@
 
 /* Form Styling */
 form {
-  background: #f9f9f9;
+  background: #ecebf3;
   padding: 20px;
   margin-top: 40px;
   border-radius: 8px;
@@ -38,9 +38,9 @@ form label {
 
 form input {
   padding: 10px;
-  width: 100%;
+  width: 95%;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 16px;
 }
 
@@ -92,7 +92,7 @@ form button:hover {
 
 .supply-table th, 
 .supply-table td {
-  padding: 12px;
+  padding: 5px;
   text-align: left;
   border: 1px solid #ddd;
 }

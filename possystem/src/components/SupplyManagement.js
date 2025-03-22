@@ -136,6 +136,7 @@ const SupplyManagement = () => {
       </div>
 
       {/* Form */}
+      <div className='supply-management-form'>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Supplier ID:</label>
@@ -164,7 +165,8 @@ const SupplyManagement = () => {
         </div>
         <button type="submit">{currentSupply ? 'Update' : 'Add'} Supply</button>
       </form>
-
+      </div>
+    <div className='supply-management-table'>
       {/* Table */}
       <div className="supply-table">
         <h3>List of Supplies</h3>
@@ -200,6 +202,7 @@ const SupplyManagement = () => {
             )}
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );

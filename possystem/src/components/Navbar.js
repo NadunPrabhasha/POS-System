@@ -34,7 +34,7 @@ const Navbar = () => {
           
         </ul>
         <div className="navbar-buttons">
-          <button className="navbar-btn signup-btn">Sign Up</button>
+          <Link to="SignUp"><button className="navbar-btn signup-btn">Sign Up</button></Link>
           <button className="navbar-btn logout-btn">Log Out</button>
         </div>
       </div>
@@ -42,4 +42,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar;

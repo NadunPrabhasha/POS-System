@@ -1,35 +1,59 @@
-// src/components/Orders.js
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import "./Orders.css"; // Make sure this CSS file exists
 
-const Orders = () => {
-  const [orders, setOrders] = useState([]);
-  const [newOrder, setNewOrder] = useState("");
-
-  const addOrder = (event) => {
-    event.preventDefault();
-    setOrders([...orders, { id: Date.now(), orderName: newOrder }]);
-    setNewOrder("");
-  };
+const CustomerOrders = () => {
+  // Sample data for the table
+  const [orders, setOrders] = useState([
+    { id: 1, orderId: "ORD101", customerId: "CUST001", itemId: "ITM500", paymentMethod: "Card" },
+    { id: 2, orderId: "ORD102", customerId: "CUST002", itemId: "ITM501", paymentMethod: "Cash" }
+  ]);
 
   return (
-    <div>
-      <h2>Orders</h2>
-      <form onSubmit={addOrder}>
-        <input 
-          type="text" 
-          value={newOrder}
-          onChange={(e) => setNewOrder(e.target.value)} 
-          placeholder="Enter order details"
-        />
-        <button type="submit">Add Order</button>
-      </form>
-      <ul>
-        {orders.map((order) => (
-          <li key={order.id}>{order.orderName}</li>
-        ))}
-      </ul>
+    <div className="customer-orders-container">
+      <h2>Customer Orders</h2>
+
+      {/* Order Form */}
+      <div className="order-form">
+        <label>Order ID: <input type="text" /></label>
+        <label>Customer ID: <input type="text" /></label>
+        <label>Item ID: <input type="text" /></label>
+        <label>Payment Method: 
+          <select>
+            <option value="Card">Card</option>
+            <option value="Cash">Cash</option>
+          </select>
+        </label>
+        <button className="add-btn">Add Order</button>
+      </div>
+
+      {/* Orders Table */}
+      <table>
+        <thead>
+          <tr>
+            <th>Order Id</th>
+            <th>Customer Id</th>
+            <th>Item Id</th>
+            <th>Payment Method</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders.map((order) => (
+            <tr key={order.id}>
+              <td>{order.orderId}</td>
+              <td>{order.customerId}</td>
+              <td>{order.itemId}</td>
+              <td>{order.paymentMethod}</td>
+              <td>
+                <button className="edit-btn">Edit</button>
+                <button className="delete-btn">Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
 
-export default Orders;
+export default CustomerOrders;

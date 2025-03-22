@@ -1,79 +1,63 @@
+import React, { useState } from "react";
+import "./Items.css"; // Make sure this CSS file exists
 
-import React, { useState } from 'react';
 const Items = () => {
-  // State to manage list of items
-  const [items, setItems] = useState([]);
-  const [newItemName, setNewItemName] = useState('');
-  const [newItemQuantity, setNewItemQuantity] = useState(0);
-
-  // Handle adding a new item
-  const addItem = (event) => {
-    event.preventDefault();
-
-    if (!newItemName || newItemQuantity <= 0) {
-      alert('Please provide a valid item name and quantity.');
-      return;
-    }
-
-    setItems([
-      ...items,
-      {
-        id: Date.now(),
-        name: newItemName,
-        quantity: newItemQuantity,
-      },
-    ]);
-    setNewItemName('');
-    setNewItemQuantity(0);
-  };
-
-  // Handle updating the quantity of an item
-  const updateItemQuantity = (id, quantity) => {
-    setItems(
-      items.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + quantity } : item
-      )
-    );
-  };
-
-  // Handle removing an item
-  const removeItem = (id) => {
-    setItems(items.filter(item => item.id !== id));
-  };
+  const [items, setItems] = useState([
+    { id: 1, itemId: "ITM001", itemName: "Laptop Pro", category: "Laptop", price: "$1200" },
+    { id: 2, itemId: "ITM002", itemName: "Gaming Mouse", category: "Accessories", price: "$50" },
+  ]);
 
   return (
-    <div>
-      <h2>Supply Management</h2>
-      
-      {/* Add Item Form */}
-      <form onSubmit={addItem}>
-        <input
-          type="text"
-          placeholder="Enter item name"
-          value={newItemName}
-          onChange={(e) => setNewItemName(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Enter quantity"
-          value={newItemQuantity}
-          onChange={(e) => setNewItemQuantity(parseInt(e.target.value))}
-        />
-        <button type="submit">Add Item</button>
-      </form>
+    <div className="items-page">
+      <h2>Manage Items</h2>
 
-      {/* Item List */}
-      <ul>
-        {items.map((item) => (
-          <li key={item.id}>
-            <strong>{item.name}</strong> - Quantity: {item.quantity}
-            <button onClick={() => updateItemQuantity(item.id, 1)}>Add Stock</button>
-            <button onClick={() => updateItemQuantity(item.id, -1)}>Remove Stock</button>
-            <button onClick={() => removeItem(item.id)}>Remove Item</button>
-          </li>
-        ))}
-      </ul>
+      {/* Item Form Container */}
+      <div className="form-container">
+        <h3>Add New Item</h3>
+        <label>Item ID: <input type="text" /></label>
+        <label>Item Name: <input type="text" /></label>
+        <label>Item Category: 
+          <select>
+            <option value="Desktop">Desktop</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Accessories">Accessories</option>
+          </select>
+        </label>
+        <label>Price: <input type="number" /></label>
+        <button className="add-btn">Add Item</button>
+      </div>
+
+      {/* Items Table Container */}
+      <div className="table-container">
+        <h3>Item List</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Item Id</th>
+              <th>Item Name</th>
+              <th>Item Category</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item) => (
+              <tr key={item.id}>
+                <td>{item.itemId}</td>
+                <td>{item.itemName}</td>
+                <td>{item.category}</td>
+                <td>{item.price}</td>
+                <td>
+                  <button className="edit-btn">Edit</button>
+                  <button className="delete-btn">Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
-}  
-  export default Items;
+};
+
+export default Items;

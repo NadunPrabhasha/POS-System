@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
 import Customers from "./components/Customers";
+import SignUp from "./components/SignUp";
 import Orders from "./components/Orders";
 import Items from "./components/Items";
 import SupplyManagement from "./components/SupplyManagement";
@@ -26,6 +27,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Dashboard />} />
       <Route path="/customers" element={<Customers />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/orders" element={<Orders />} />
       <Route path="/items" element={<Items />} />
       <Route path="/supply-management" element={<SupplyManagement />} />

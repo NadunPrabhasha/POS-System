@@ -4,18 +4,20 @@ import './SupplyManagement.css';
 const SupplyManagement = () => {
   const [supplies, setSupplies] = useState([]);
   const [currentSupply, setCurrentSupply] = useState(null);
+  const [supplierID, setSupplierID] = useState('');
   const [supplierName, setSupplierName] = useState('');
   const [contact, setContact] = useState('');
   const [companyName, setCompanyName] = useState('');
+  const [email, setEmail] = useState(''); // New email state
   const [errors, setErrors] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCompany, setSelectedCompany] = useState('');
 
   useEffect(() => {
     const initialSupplies = [
-      { id: 1, supplier_name: 'Supplier A', contact: '123-456-7890', company_name: 'Company A' },
-      { id: 2, supplier_name: 'Supplier B', contact: '987-654-3210', company_name: 'Company B' },
-      { id: 3, supplier_name: 'Supplier C', contact: '111-222-3333', company_name: 'Company A' },
+      { id: 1, supplier_name: 'Supplier A', contact: '1234567890', company_name: 'Company A', email: 'supplierA@example.com' },
+      { id: 2, supplier_name: 'Supplier B', contact: '9876543210', company_name: 'Company B', email: 'supplierB@example.com' },
+      { id: 3, supplier_name: 'Supplier C', contact: '1112223333', company_name: 'Company A', email: 'supplierC@example.com' },
     ];
     setSupplies(initialSupplies);
   }, []);
@@ -24,13 +26,18 @@ const SupplyManagement = () => {
   const validateForm = () => {
     let formErrors = {};
     let isValid = true;
+    
+    if (!supplierID.trim()) {
+      formErrors.supplierID = "Supplier ID is required";
+      isValid = false;
+    }
 
     if (!supplierName.trim()) {
       formErrors.supplierName = "Supplier Name is required";
       isValid = false;
     }
 
-    const phoneRegex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
+    const phoneRegex = /^[0-9]{3}[0-9]{3}[0-9]{4}$/;
     if (!contact.trim()) {
       formErrors.contact = "Contact is required";
       isValid = false;
@@ -41,6 +48,15 @@ const SupplyManagement = () => {
 
     if (!companyName.trim()) {
       formErrors.companyName = "Company Name is required";
+      isValid = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email.trim()) {
+      formErrors.email = "Email is required";
+      isValid = false;
+    } else if (!emailRegex.test(email)) {
+      formErrors.email = "Email must be in a valid format (example@example.com)";
       isValid = false;
     }
 
@@ -55,9 +71,11 @@ const SupplyManagement = () => {
 
     const newSupply = {
       id: currentSupply ? currentSupply.id : Date.now(),
+      supplier_id: supplierID,
       supplier_name: supplierName,
       contact,
       company_name: companyName,
+      email, // Add email to the supply object
     };
 
     if (currentSupply) {
@@ -66,9 +84,11 @@ const SupplyManagement = () => {
       setSupplies([...supplies, newSupply]);
     }
 
+    setSupplierID('');
     setSupplierName('');
     setContact('');
     setCompanyName('');
+    setEmail(''); // Reset email
     setCurrentSupply(null);
     setErrors({});
   };
@@ -81,9 +101,11 @@ const SupplyManagement = () => {
   // Handle Edit
   const handleEdit = (supply) => {
     setCurrentSupply(supply);
+    setSupplierID(supply.supplier_id);
     setSupplierName(supply.supplier_name);
     setContact(supply.contact);
     setCompanyName(supply.company_name);
+    setEmail(supply.email); // Set email when editing
     setErrors({});
   };
 
@@ -114,7 +136,13 @@ const SupplyManagement = () => {
       </div>
 
       {/* Form */}
+      <div className='supply-management-form'>
       <form onSubmit={handleSubmit}>
+        <div>
+          <label>Supplier ID:</label>
+          <input type="text" value={supplierID} onChange={(e) => setSupplierID(e.target.value)} required />
+          {errors.supplierID && <p className="error">{errors.supplierID}</p>}
+        </div>
         <div>
           <label>Supplier Name:</label>
           <input type="text" value={supplierName} onChange={(e) => setSupplierName(e.target.value)} required />
@@ -130,27 +158,37 @@ const SupplyManagement = () => {
           <input type="text" value={companyName} onChange={(e) => setCompanyName(e.target.value)} required />
           {errors.companyName && <p className="error">{errors.companyName}</p>}
         </div>
+        <div>
+          <label>Email:</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          {errors.email && <p className="error">{errors.email}</p>}
+        </div>
         <button type="submit">{currentSupply ? 'Update' : 'Add'} Supply</button>
       </form>
-
+      </div>
+    <div className='supply-management-table'>
       {/* Table */}
       <div className="supply-table">
         <h3>List of Supplies</h3>
         <table>
           <thead>
             <tr>
+              <th>Supplier ID</th>
               <th>Supplier Name</th>
               <th>Contact</th>
               <th>Company Name</th>
+              <th>Email</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {filteredSupplies.map(supply => (
               <tr key={supply.id}>
+                <td>{supply.supplier_id}</td>
                 <td>{supply.supplier_name}</td>
                 <td>{supply.contact}</td>
                 <td>{supply.company_name}</td>
+                <td>{supply.email}</td> {/* Display email in table */}
                 <td>
                   <button className="edit-btn" onClick={() => handleEdit(supply)}>Edit</button>
                   <button className="delete-btn" onClick={() => handleDelete(supply.id)}>Delete</button>
@@ -159,11 +197,12 @@ const SupplyManagement = () => {
             ))}
             {filteredSupplies.length === 0 && (
               <tr>
-                <td colSpan="4" style={{ textAlign: 'center', color: 'red' }}>No suppliers found</td>
+                <td colSpan="6" style={{ textAlign: 'center', color: 'red' }}>No suppliers found</td>
               </tr>
             )}
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );

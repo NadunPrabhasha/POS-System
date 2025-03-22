@@ -1,10 +1,28 @@
-/* src/components/SupplyManagement.css */
+/* SupplyManagement.css */
 
 .supply-management {
   margin: 20px;
-  max-width: 800px;
+  max-width: 1000px;
   margin: auto;
   font-family: Arial, sans-serif;
+  padding-top: 80px; /* Added padding to account for the fixed navbar */
+}
+
+.supply-management-form{
+  
+  max-width: 600px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+  
+  
+  
+}
+
+.supply-management-table{
+  max-width: 2000px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+
 }
 
 .supply-management h2 {
@@ -16,8 +34,9 @@
 
 /* Form Styling */
 form {
-  background: #f9f9f9;
-  padding: 20px;
+  background: #ecebf3;
+  padding:10px;
+  margin-top: 40px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
@@ -35,10 +54,10 @@ form label {
 }
 
 form input {
-  padding: 10px;
-  width: 100%;
+  padding: 6px;
+  width: 95%;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 16px;
 }
 
@@ -50,7 +69,7 @@ form input:focus {
 /* Button Styling */
 form button {
   padding: 12px 20px;
-  background-color: #4CAF50;
+  background-color: #1054d1;
   color: white;
   border: none;
   cursor: pointer;
@@ -60,7 +79,7 @@ form button {
 }
 
 form button:hover {
-  background-color: #45a049;
+  background-color: #326094;
 }
 
 /* Error Messages */
@@ -90,13 +109,13 @@ form button:hover {
 
 .supply-table th, 
 .supply-table td {
-  padding: 12px;
+  padding: 5px;
   text-align: left;
   border: 1px solid #ddd;
 }
 
 .supply-table th {
-  background-color: #4CAF50;
+  background-color: #1054d1;
   color: white;
   font-size: 16px;
 }
@@ -163,6 +182,7 @@ form button:hover {
     font-size: 12px;
   }
 }
+
 .filter-section {
   display: flex;
   justify-content: space-between;

@@ -54,11 +54,8 @@
 
 .navbar-buttons {
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-grow: 1;
-  gap: 10px;
-  text-decoration: none;
+  justify-content: flex-end; /* Aligns buttons to the right corner */
+  margin-left: 500px; /* Ensures that buttons stay on the right side */
 }
 
 .navbar-btn {
@@ -100,27 +97,5 @@
 }
 
 .logout-btn:hover {
-  background-color: #326094;
-}
-
-/* Navbar Responsiveness */
-@media (max-width: 768px) {
-  .navbar-links {
-    flex-direction: column;
-    margin-left: 0;
-    margin-top: 10px;
-  }
-
-  .navbar-buttons {
-    margin-top: 10px;
-    justify-content: center;
-  }
-
-  .navbar-logo img {
-    height: 40px;
-  }
-
-  .navbar-links li {
-    margin: 10px 0;
-  }
+  background-color: #326094; /* Darker red for hover effect */
 }

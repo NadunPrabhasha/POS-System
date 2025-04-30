@@ -1,0 +1,50 @@
+scalar Object
+
+type Query{
+    ping: String
+    getAllUsers: Object
+    getAllAdmin: Object
+}
+
+type Mutation {
+    createAdmin(adminDTO: AdminDTO!): Object
+    createUser(user: User!): Object
+    addProduct(products: Products!): Object
+    createCategory(category: Category!):Object
+    updateAdmin(adminId:String! , adminDTO:AdminDTO):Object
+
+
+}
+
+
+
+
+
+
+
+
+
+
+input User {
+    userName: String!
+    password: String!
+    email:String!
+}
+input AdminDTO {
+
+    adminName: String!
+    dateOfBirth: String!  # Date in String format
+}
+
+input Products{
+    productName: String!
+    productPrice:Float !
+    costPrice:Float!
+    itemCategory:String!
+    description :String!
+
+}
+
+input Category{
+    categoryName: String!
+}

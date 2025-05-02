@@ -7,6 +7,8 @@ import Orders from "./components/Orders";
 import Items from "./components/Items";
 import SupplyManagement from "./components/SupplyManagement";
 import Navbar from "./components/Navbar";
+
+
 import "./assets/styles/style.css";
 
 
@@ -31,6 +33,7 @@ function App() {
       <Route path="/orders" element={<Orders />} />
       <Route path="/items" element={<Items />} />
       <Route path="/supply-management" element={<SupplyManagement />} />
+
     </Routes>
   </Router>
     

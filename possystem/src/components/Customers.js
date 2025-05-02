@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../assets/styles/Customers.css"; // Create and style this file
 
+
 const Customer = () => {
   const [customers, setCustomers] = useState([
     { id: 1, name: "Customer A", email: "customerA@example.com", address: "Address A" },

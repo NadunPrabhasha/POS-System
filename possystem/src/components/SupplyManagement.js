@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './SupplyManagement.css';
+import '../assets/styles/SupplyManagement.css';
 
 const SupplyManagement = () => {
   const [supplies, setSupplies] = useState([]);

@@ -1,7 +1,7 @@
 // src/components/Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Navbar.css'; // Import the CSS for Navbar styling
+import '../assets/styles/Navbar.css'; // Import the CSS for Navbar styling
 import logo from '../assets/images/logo.png';  // Import your logo image
 
 

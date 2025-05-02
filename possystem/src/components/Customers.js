@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Customers.css"; // Create and style this file
+import "../assets/styles/Customers.css"; // Create and style this file
 
 const Customer = () => {
   const [customers, setCustomers] = useState([

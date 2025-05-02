@@ -1,4 +1,3 @@
-/* Navbar.css */
 .navbar {
   background-color: #1a1943;
   padding: 10px 20px;
@@ -19,10 +18,14 @@
 .logo-name {
   font-size: 20px;
   font-weight: bold;
-  color: white;
+  color: rgba(8, 74, 200, 0.55);
   text-transform: uppercase;
   letter-spacing: 1.5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* subtle shadow */
+  position: relative;
+  z-index: 1;
 }
+
 
 .navbar-logo img {
   height: 55px;
@@ -54,12 +57,12 @@
 
 .navbar-buttons {
   display: flex;
-  justify-content: flex-end; /* Aligns buttons to the right corner */
-  margin-left: 500px; /* Ensures that buttons stay on the right side */
+  justify-content: flex-end;
+  margin-left: auto;
 }
 
 .navbar-btn {
-  background-color: #458bcc;
+  background-color: #1054d1;
   color: white;
   width: 140px;
   height: 40px;
@@ -74,28 +77,13 @@
   justify-content: center;
   align-items: center;
   border-radius: 15px;
+  transition: background-color 0.3s ease;
 }
 
 .navbar-btn:hover {
-  background-color: #45a049;
+  background-color: #326094;
 }
 
 .navbar-btn:focus {
   outline: none;
-}
-
-.signup-btn {
-  background-color: #1054d1;
-}
-
-.signup-btn:hover {
-  background-color: #326094;
-}
-
-.logout-btn {
-  background-color: #1054d1;
-}
-
-.logout-btn:hover {
-  background-color: #326094; /* Darker red for hover effect */
 }

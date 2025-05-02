@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./Items.css"; // Make sure this CSS file exists
+import "../assets/styles/Items.css"; // Make sure this CSS file exists
+
 
 const Items = () => {
   const [items, setItems] = useState([

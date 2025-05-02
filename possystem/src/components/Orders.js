@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./Orders.css"; // Make sure this CSS file exists
+import "../assets/styles/Orders.css"; // Make sure this CSS file exists
+
 
 const CustomerOrders = () => {
   // Sample data for the table

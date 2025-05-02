@@ -1,8 +1,9 @@
 // src/components/Dashboard.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import '../assets/styles/User.css';  // Optional: For custom styling
+import '../assets/styles/Dashboard.css';  // Optional: For custom styling
 import Slideshow from "../components/Slideshow";
+
 
 
 const Dashboard = () => {

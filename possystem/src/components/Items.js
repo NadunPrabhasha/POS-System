@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../assets/styles/Items.css"; // Make sure this CSS file exists
 
+
 const Items = () => {
   const [items, setItems] = useState([
     { id: 1, itemId: "ITM001", itemName: "Laptop Pro", category: "Laptop", price: "$1200" },

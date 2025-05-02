@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/styles/SupplyManagement.css';
 
+
 const SupplyManagement = () => {
   const [supplies, setSupplies] = useState([]);
   const [currentSupply, setCurrentSupply] = useState(null);
